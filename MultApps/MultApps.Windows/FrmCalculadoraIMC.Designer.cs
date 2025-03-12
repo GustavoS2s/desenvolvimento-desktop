@@ -29,6 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblResultadoImc = new System.Windows.Forms.Label();
+            this.btnCalcular = new System.Windows.Forms.Button();
+            this.panelAdulto = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAltura = new System.Windows.Forms.TextBox();
+            this.cmbIdade = new System.Windows.Forms.ComboBox();
+            this.txtPeso = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblIdade = new System.Windows.Forms.Label();
             this.chkFeminino = new System.Windows.Forms.CheckBox();
             this.chkMasculino = new System.Windows.Forms.CheckBox();
@@ -36,22 +45,16 @@
             this.chkCrianca = new System.Windows.Forms.CheckBox();
             this.chkAdulto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panelAdulto = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtPeso = new System.Windows.Forms.TextBox();
-            this.txtAltura = new System.Windows.Forms.TextBox();
-            this.cmbIdade = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnCalcular = new System.Windows.Forms.Button();
-            this.lblResultadoImc = new System.Windows.Forms.Label();
+            this.picBoxImc = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panelAdulto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxImc)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.picBoxImc);
             this.panel1.Controls.Add(this.lblResultadoImc);
             this.panel1.Controls.Add(this.btnCalcular);
             this.panel1.Controls.Add(this.panelAdulto);
@@ -67,6 +70,110 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1549, 759);
             this.panel1.TabIndex = 0;
+            // 
+            // lblResultadoImc
+            // 
+            this.lblResultadoImc.AutoSize = true;
+            this.lblResultadoImc.Location = new System.Drawing.Point(392, 400);
+            this.lblResultadoImc.Name = "lblResultadoImc";
+            this.lblResultadoImc.Size = new System.Drawing.Size(94, 24);
+            this.lblResultadoImc.TabIndex = 9;
+            this.lblResultadoImc.Text = "Resultado";
+            // 
+            // btnCalcular
+            // 
+            this.btnCalcular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnCalcular.ForeColor = System.Drawing.Color.White;
+            this.btnCalcular.Location = new System.Drawing.Point(78, 370);
+            this.btnCalcular.Name = "btnCalcular";
+            this.btnCalcular.Size = new System.Drawing.Size(102, 58);
+            this.btnCalcular.TabIndex = 8;
+            this.btnCalcular.Text = "calcular";
+            this.btnCalcular.UseVisualStyleBackColor = false;
+            this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
+            // 
+            // panelAdulto
+            // 
+            this.panelAdulto.Controls.Add(this.label5);
+            this.panelAdulto.Controls.Add(this.txtAltura);
+            this.panelAdulto.Controls.Add(this.cmbIdade);
+            this.panelAdulto.Controls.Add(this.txtPeso);
+            this.panelAdulto.Controls.Add(this.label4);
+            this.panelAdulto.Controls.Add(this.label3);
+            this.panelAdulto.Location = new System.Drawing.Point(78, 206);
+            this.panelAdulto.Name = "panelAdulto";
+            this.panelAdulto.Size = new System.Drawing.Size(524, 143);
+            this.panelAdulto.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(293, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 24);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Idade";
+            this.label5.Visible = false;
+            // 
+            // txtAltura
+            // 
+            this.txtAltura.Location = new System.Drawing.Point(163, 71);
+            this.txtAltura.Name = "txtAltura";
+            this.txtAltura.Size = new System.Drawing.Size(100, 29);
+            this.txtAltura.TabIndex = 3;
+            // 
+            // cmbIdade
+            // 
+            this.cmbIdade.FormattingEnabled = true;
+            this.cmbIdade.Items.AddRange(new object[] {
+            "1 ano",
+            "2 anos",
+            "3 anos",
+            "4 anos",
+            "5 anos",
+            "6 anos",
+            "7 anos",
+            "8 anos",
+            "9 anos",
+            "10 anos",
+            "11 anos",
+            "12 anos",
+            "13 anos",
+            "14 anos",
+            "15 anos",
+            "16 anos",
+            "17 anos",
+            "18 anos"});
+            this.cmbIdade.Location = new System.Drawing.Point(297, 68);
+            this.cmbIdade.Name = "cmbIdade";
+            this.cmbIdade.Size = new System.Drawing.Size(121, 32);
+            this.cmbIdade.TabIndex = 0;
+            this.cmbIdade.Visible = false;
+            // 
+            // txtPeso
+            // 
+            this.txtPeso.Location = new System.Drawing.Point(19, 71);
+            this.txtPeso.Name = "txtPeso";
+            this.txtPeso.Size = new System.Drawing.Size(100, 29);
+            this.txtPeso.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(169, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 24);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Altura";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 24);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Peso";
             // 
             // lblIdade
             // 
@@ -90,6 +197,8 @@
             this.chkFeminino.TabIndex = 5;
             this.chkFeminino.Text = "Feminino";
             this.chkFeminino.UseVisualStyleBackColor = true;
+            this.chkFeminino.CheckedChanged += new System.EventHandler(this.chkFeminino_CheckedChanged);
+            this.chkFeminino.Click += new System.EventHandler(this.chkFeminino_Click);
             // 
             // chkMasculino
             // 
@@ -104,6 +213,8 @@
             this.chkMasculino.TabIndex = 4;
             this.chkMasculino.Text = "Masculino";
             this.chkMasculino.UseVisualStyleBackColor = true;
+            this.chkMasculino.CheckedChanged += new System.EventHandler(this.chkMasculino_CheckedChanged);
+            this.chkMasculino.Click += new System.EventHandler(this.chkMasculino_Click);
             // 
             // label2
             // 
@@ -157,115 +268,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Selecione";
             // 
-            // panelAdulto
+            // picBoxImc
             // 
-            this.panelAdulto.Controls.Add(this.label5);
-            this.panelAdulto.Controls.Add(this.txtAltura);
-            this.panelAdulto.Controls.Add(this.cmbIdade);
-            this.panelAdulto.Controls.Add(this.txtPeso);
-            this.panelAdulto.Controls.Add(this.label4);
-            this.panelAdulto.Controls.Add(this.label3);
-            this.panelAdulto.Location = new System.Drawing.Point(78, 206);
-            this.panelAdulto.Name = "panelAdulto";
-            this.panelAdulto.Size = new System.Drawing.Size(524, 143);
-            this.panelAdulto.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 24);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Peso";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(169, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 24);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Altura";
-            // 
-            // txtPeso
-            // 
-            this.txtPeso.Location = new System.Drawing.Point(19, 71);
-            this.txtPeso.Name = "txtPeso";
-            this.txtPeso.Size = new System.Drawing.Size(100, 29);
-            this.txtPeso.TabIndex = 2;
-            // 
-            // txtAltura
-            // 
-            this.txtAltura.Location = new System.Drawing.Point(163, 71);
-            this.txtAltura.Name = "txtAltura";
-            this.txtAltura.Size = new System.Drawing.Size(100, 29);
-            this.txtAltura.TabIndex = 3;
-            // 
-            // cmbIdade
-            // 
-            this.cmbIdade.FormattingEnabled = true;
-            this.cmbIdade.Items.AddRange(new object[] {
-            "1 ano",
-            "2 anos",
-            "3 anos",
-            "4 anos",
-            "5 anos",
-            "6 anos",
-            "7 anos",
-            "8 anos",
-            "9 anos",
-            "10 anos",
-            "11 anos",
-            "12 anos",
-            "13 anos",
-            "14 anos",
-            "15 anos",
-            "16 anos",
-            "17 anos",
-            "18 anos",
-            "19 anos",
-            "21 anos",
-            "22 anos",
-            "23 anos",
-            "24 anos",
-            "25 anos",
-            "26 anos"});
-            this.cmbIdade.Location = new System.Drawing.Point(297, 68);
-            this.cmbIdade.Name = "cmbIdade";
-            this.cmbIdade.Size = new System.Drawing.Size(121, 32);
-            this.cmbIdade.TabIndex = 0;
-            this.cmbIdade.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(293, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 24);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Idade";
-            // 
-            // btnCalcular
-            // 
-            this.btnCalcular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnCalcular.ForeColor = System.Drawing.Color.White;
-            this.btnCalcular.Location = new System.Drawing.Point(78, 370);
-            this.btnCalcular.Name = "btnCalcular";
-            this.btnCalcular.Size = new System.Drawing.Size(102, 58);
-            this.btnCalcular.TabIndex = 8;
-            this.btnCalcular.Text = "calcular";
-            this.btnCalcular.UseVisualStyleBackColor = false;
-            this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
-            // 
-            // lblResultadoImc
-            // 
-            this.lblResultadoImc.AutoSize = true;
-            this.lblResultadoImc.Location = new System.Drawing.Point(392, 400);
-            this.lblResultadoImc.Name = "lblResultadoImc";
-            this.lblResultadoImc.Size = new System.Drawing.Size(94, 24);
-            this.lblResultadoImc.TabIndex = 9;
-            this.lblResultadoImc.Text = "Resultado";
+            this.picBoxImc.Location = new System.Drawing.Point(728, 264);
+            this.picBoxImc.Name = "picBoxImc";
+            this.picBoxImc.Size = new System.Drawing.Size(259, 304);
+            this.picBoxImc.TabIndex = 10;
+            this.picBoxImc.TabStop = false;
             // 
             // FrmCalculadoraIMC
             // 
@@ -282,6 +291,7 @@
             this.panel1.PerformLayout();
             this.panelAdulto.ResumeLayout(false);
             this.panelAdulto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxImc)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -305,5 +315,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCalcular;
         private System.Windows.Forms.Label lblResultadoImc;
+        private System.Windows.Forms.PictureBox picBoxImc;
     }
 }
