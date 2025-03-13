@@ -198,7 +198,7 @@
             this.chkFeminino.Text = "Feminino";
             this.chkFeminino.UseVisualStyleBackColor = true;
             this.chkFeminino.CheckedChanged += new System.EventHandler(this.chkFeminino_CheckedChanged);
-            this.chkFeminino.Click += new System.EventHandler(this.chkFeminino_Click);
+            
             // 
             // chkMasculino
             // 
