@@ -38,10 +38,8 @@ namespace MultApps.Windows.Properties
         ///   Retorna a instância cacheada de ResourceManager utilizada por esta classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
                 if ((resourceMan == null))
                 {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MultApps.Windows.Properties.Resources", typeof(Resources).Assembly);
@@ -56,14 +54,11 @@ namespace MultApps.Windows.Properties
         ///   as pesquisas de recursos que usam esta classe de recursos fortemente tipados.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
