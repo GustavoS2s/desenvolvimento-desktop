@@ -65,6 +65,7 @@
             this.pgbLoad.Location = new System.Drawing.Point(309, 401);
             this.pgbLoad.Name = "pgbLoad";
             this.pgbLoad.Size = new System.Drawing.Size(268, 20);
+            this.pgbLoad.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgbLoad.TabIndex = 0;
             // 
             // dateTimePicker1
