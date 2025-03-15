@@ -14,9 +14,10 @@ namespace MultApps.Windows
         [STAThread]
         static void Main()
         {
+            SplashScreen splash = new SplashScreen();
+            splash.ShowDialog();
+            Application.Run(new Principal());
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmAposentadoria());
         }
     }
 }
