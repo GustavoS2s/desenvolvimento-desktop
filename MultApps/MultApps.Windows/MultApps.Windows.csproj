@@ -59,6 +59,12 @@
     <Compile Include="FrmAposentadoria.Designer.cs">
       <DependentUpon>FrmAposentadoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmappCarteirinha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmappCarteirinha.Designer.cs">
+      <DependentUpon>FrmappCarteirinha.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCalculadoraIMC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FrmappCarteirinha.resx">
+      <DependentUpon>FrmappCarteirinha.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCalculadoraIMC.resx">
       <DependentUpon>FrmCalculadoraIMC.cs</DependentUpon>
     </EmbeddedResource>
