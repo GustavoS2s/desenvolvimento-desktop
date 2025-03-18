@@ -178,6 +178,7 @@
             this.PicIcone.Location = new System.Drawing.Point(57, 28);
             this.PicIcone.Name = "PicIcone";
             this.PicIcone.Size = new System.Drawing.Size(156, 93);
+            this.PicIcone.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PicIcone.TabIndex = 0;
             this.PicIcone.TabStop = false;
             // 

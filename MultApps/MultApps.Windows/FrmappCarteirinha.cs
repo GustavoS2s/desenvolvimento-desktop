@@ -23,30 +23,66 @@ namespace MultApps.Windows
                 return;
             }
 
-            Visitante visitante = new Visitante(nome, dataNascimento, cpf);
-
-            if (visitante.Idade == -1)
+            int idade = CalcularIdade(dataNascimento);
+            if (idade == -1)
             {
                 MessageBox.Show("Data de nascimento inválida! Use o formato dd/MM/yyyy.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            lblNome.Text = $"Nome: {visitante.Nome}";
-            lblIdade.Text = $"Idade: {visitante.Idade} anos";
-            lblCPF.Text = $"CPF: {OfuscarCpf(visitante.CPF)}";
-            lblZona.Text = visitante.Zona; 
+            string zona;
+            Color corZona;
+            string urlImagem = ""; 
 
-            pnlCarteirinha.BackColor = visitante.CorZona;
-            string iconePath = visitante.IconePath;
-            if (System.IO.File.Exists(iconePath))
+            if (idade <= 12)
             {
-                PicIcone.Image = Image.FromFile(iconePath);
+                zona = "Zona Azul - Criança";
+                corZona = Color.Blue;
+                urlImagem = "https://e7.pngegg.com/pngimages/10/633/png-clipart-pocoyo-pocoyo-posing-at-the-movies-cartoons-thumbnail.png"; // URL da imagem da criança
+            }
+            else if (idade >= 60)
+            {
+                zona = "Zona Verde - Idoso";
+                corZona = Color.Green;
+                urlImagem = "https://img.cdndsgni.com/preview/12102238.jpg"; 
+            }
+            else if (idade >= 13 && idade <= 25)
+            {
+                zona = "Zona Amarela - Jovem";
+                corZona = Color.Yellow;
+                urlImagem = "https://cdn-icons-png.flaticon.com/512/15370/15370957.png"; 
             }
             else
             {
-                PicIcone.Image = null; 
+                zona = "Zona Roxa - Adulto";
+                corZona = Color.Purple;
+                urlImagem = "https://img.freepik.com/vetores-gratis/homem-idoso-sorridente-de-oculos_1308-174843.jpg";
             }
 
+            lblNome.Text = $"Nome: {nome}";
+            lblIdade.Text = $"Idade: {idade} anos";
+            lblCPF.Text = $"CPF: {OfuscarCPF(cpf)}";
+            lblZona.Text = zona;
+
+            pnlCarteirinha.BackColor = corZona;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(urlImagem))
+                {
+                    PicIcone.Load(urlImagem); 
+                }
+                else
+                {
+                    PicIcone.Image = null;
+                    MessageBox.Show("Imagem não encontrada! Verifique o caminho da imagem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PicIcone.Image = null;
+            }
 
             pnlCarteirinha.Visible = true;
             lblNome.Visible = true;
@@ -56,64 +92,33 @@ namespace MultApps.Windows
             PicIcone.Visible = true;
         }
 
-        private string OfuscarCpf(string cpf)
+        private int CalcularIdade(string dataNascimento)
         {
-            if (cpf.Length == 11)
+            DateTime dataNasc;
+            if (!DateTime.TryParse(dataNascimento, out dataNasc))
             {
-                return $"***.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}.***";
-            }
-            return "CPF inválido!";
-        }
-    }
-
-    public class Visitante
-    {
-        public string Nome { get; }
-        public int Idade { get; }
-        public string CPF { get; }
-        public string Zona { get; }
-        public Color CorZona { get; }
-        public string IconePath { get; }
-
-        public Visitante(string nome, string dataNascimento, string cpf)
-        {
-            Nome = nome;
-            CPF = cpf;
-
-            if (!DateTime.TryParse(dataNascimento, out DateTime dataNasc))
-            {
-                Idade = -1; 
-                return;
+                return -1;
             }
 
-            Idade = DateTime.Now.Year - dataNasc.Year;
+            int idade = DateTime.Now.Year - dataNasc.Year;
             if (DateTime.Now.DayOfYear < dataNasc.DayOfYear)
-                Idade--; 
+            {
+                idade--;
+            }
 
-            if (Idade <= 12)
-            {
-                Zona = "Zona Azul - Criança";
-                CorZona = Color.Blue;
-                IconePath = Application.StartupPath + @"https://e7.pngegg.com/pngimages/10/633/png-clipart-pocoyo-pocoyo-posing-at-the-movies-cartoons-thumbnail.png";
-            }
-            else if (Idade >= 60)
-            {
-                Zona = "Zona Verde - Idoso";
-                CorZona = Color.Green;
-                IconePath = Application.StartupPath + @"\icones\idoso.png";
-            }
-            else if (Idade >= 13 && Idade <= 25)
-            {
-                Zona = "Zona Amarela - Jovem";
-                CorZona = Color.Yellow;
-                IconePath = Application.StartupPath + @"\icones\jovem.png";
-            }
-            else
-            {
-                Zona = "Zona Roxa - Adulto";
-                CorZona = Color.Purple;
-                IconePath = Application.StartupPath + @"\icones\adulto.png";
-            }
+            return idade;
+        }
+
+        private string OfuscarCPF(string cpf)
+        {
+            if (cpf.Length != 11)
+                return "CPF inválido";
+
+            string parte1 = cpf.Substring(3, 3);
+            string parte2 = cpf.Substring(6, 3);
+
+            return $"***.{parte1}.{parte2}.***";
         }
     }
 }
+
