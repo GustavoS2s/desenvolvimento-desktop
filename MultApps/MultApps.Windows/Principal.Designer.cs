@@ -31,13 +31,19 @@
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
             this.calculadoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCalculadoraImc = new System.Windows.Forms.ToolStripMenuItem();
+            this.carteirinhaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.carteirinhaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aposentadoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aposentadoriaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripPrincipal
             // 
             this.menuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.calculadoraToolStripMenuItem});
+            this.calculadoraToolStripMenuItem,
+            this.carteirinhaToolStripMenuItem,
+            this.aposentadoriaToolStripMenuItem});
             this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuStripPrincipal.Name = "menuStripPrincipal";
             this.menuStripPrincipal.Size = new System.Drawing.Size(800, 24);
@@ -55,9 +61,39 @@
             // menuCalculadoraImc
             // 
             this.menuCalculadoraImc.Name = "menuCalculadoraImc";
-            this.menuCalculadoraImc.Size = new System.Drawing.Size(180, 22);
+            this.menuCalculadoraImc.Size = new System.Drawing.Size(178, 22);
             this.menuCalculadoraImc.Text = "Calculadora de IMC";
             this.menuCalculadoraImc.Click += new System.EventHandler(this.menuCalculadoraImc_Click);
+            // 
+            // carteirinhaToolStripMenuItem
+            // 
+            this.carteirinhaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.carteirinhaToolStripMenuItem1});
+            this.carteirinhaToolStripMenuItem.Name = "carteirinhaToolStripMenuItem";
+            this.carteirinhaToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.carteirinhaToolStripMenuItem.Text = "Carteirinha";
+            // 
+            // carteirinhaToolStripMenuItem1
+            // 
+            this.carteirinhaToolStripMenuItem1.Name = "carteirinhaToolStripMenuItem1";
+            this.carteirinhaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.carteirinhaToolStripMenuItem1.Text = "Carteirinha";
+            this.carteirinhaToolStripMenuItem1.Click += new System.EventHandler(this.carteirinhaToolStripMenuItem1_Click);
+            // 
+            // aposentadoriaToolStripMenuItem
+            // 
+            this.aposentadoriaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aposentadoriaToolStripMenuItem1});
+            this.aposentadoriaToolStripMenuItem.Name = "aposentadoriaToolStripMenuItem";
+            this.aposentadoriaToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.aposentadoriaToolStripMenuItem.Text = "Aposentadoria";
+            // 
+            // aposentadoriaToolStripMenuItem1
+            // 
+            this.aposentadoriaToolStripMenuItem1.Name = "aposentadoriaToolStripMenuItem1";
+            this.aposentadoriaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aposentadoriaToolStripMenuItem1.Text = "Aposentadoria";
+            this.aposentadoriaToolStripMenuItem1.Click += new System.EventHandler(this.aposentadoriaToolStripMenuItem1_Click);
             // 
             // Principal
             // 
@@ -83,5 +119,9 @@
         private System.Windows.Forms.MenuStrip menuStripPrincipal;
         private System.Windows.Forms.ToolStripMenuItem calculadoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuCalculadoraImc;
+        private System.Windows.Forms.ToolStripMenuItem carteirinhaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem carteirinhaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aposentadoriaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aposentadoriaToolStripMenuItem1;
     }
 }

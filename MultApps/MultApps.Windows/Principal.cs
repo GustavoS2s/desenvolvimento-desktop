@@ -24,5 +24,20 @@ namespace MultApps.Windows
             form.Show();
 
         }
+
+        private void carteirinhaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = new FrmappCarteirinha();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+
+        private void aposentadoriaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = new FrmAposentadoria();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
