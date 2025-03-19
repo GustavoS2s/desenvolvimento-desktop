@@ -35,6 +35,8 @@
             this.carteirinhaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aposentadoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aposentadoriaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.acaiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.açaiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +45,8 @@
             this.menuStripPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.calculadoraToolStripMenuItem,
             this.carteirinhaToolStripMenuItem,
-            this.aposentadoriaToolStripMenuItem});
+            this.aposentadoriaToolStripMenuItem,
+            this.acaiToolStripMenuItem});
             this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuStripPrincipal.Name = "menuStripPrincipal";
             this.menuStripPrincipal.Size = new System.Drawing.Size(800, 24);
@@ -76,7 +79,7 @@
             // carteirinhaToolStripMenuItem1
             // 
             this.carteirinhaToolStripMenuItem1.Name = "carteirinhaToolStripMenuItem1";
-            this.carteirinhaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.carteirinhaToolStripMenuItem1.Size = new System.Drawing.Size(132, 22);
             this.carteirinhaToolStripMenuItem1.Text = "Carteirinha";
             this.carteirinhaToolStripMenuItem1.Click += new System.EventHandler(this.carteirinhaToolStripMenuItem1_Click);
             // 
@@ -91,9 +94,24 @@
             // aposentadoriaToolStripMenuItem1
             // 
             this.aposentadoriaToolStripMenuItem1.Name = "aposentadoriaToolStripMenuItem1";
-            this.aposentadoriaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aposentadoriaToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.aposentadoriaToolStripMenuItem1.Text = "Aposentadoria";
             this.aposentadoriaToolStripMenuItem1.Click += new System.EventHandler(this.aposentadoriaToolStripMenuItem1_Click);
+            // 
+            // acaiToolStripMenuItem
+            // 
+            this.acaiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.açaiToolStripMenuItem});
+            this.acaiToolStripMenuItem.Name = "acaiToolStripMenuItem";
+            this.acaiToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.acaiToolStripMenuItem.Text = "Acai";
+            this.acaiToolStripMenuItem.Click += new System.EventHandler(this.acaiToolStripMenuItem_Click);
+            // 
+            // açaiToolStripMenuItem
+            // 
+            this.açaiToolStripMenuItem.Name = "açaiToolStripMenuItem";
+            this.açaiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.açaiToolStripMenuItem.Text = "Açai";
             // 
             // Principal
             // 
@@ -123,5 +141,7 @@
         private System.Windows.Forms.ToolStripMenuItem carteirinhaToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aposentadoriaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aposentadoriaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem acaiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem açaiToolStripMenuItem;
     }
 }

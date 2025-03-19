@@ -39,5 +39,12 @@ namespace MultApps.Windows
             form.MdiParent = this;
             form.Show();
         }
+
+        private void acaiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FrmAcai();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
