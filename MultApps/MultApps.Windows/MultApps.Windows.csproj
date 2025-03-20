@@ -148,5 +148,26 @@
   <ItemGroup>
     <None Include="Resources\açai.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\acay2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sucrilhos-de-chocolate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banana.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morango.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leitinho2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leitao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mm.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
