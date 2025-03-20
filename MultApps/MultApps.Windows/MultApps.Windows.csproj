@@ -53,6 +53,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAcai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAcai.Designer.cs">
+      <DependentUpon>FrmAcai.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAposentadoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAcai.resx">
+      <DependentUpon>FrmAcai.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAposentadoria.resx">
       <DependentUpon>FrmAposentadoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +144,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Captura de tela 2025-03-13 195454.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\açai.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\acay2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sucrilhos-de-chocolate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banana.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\morango.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leitinho2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leitao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mm.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AcaiApp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,14 @@ namespace MultApps.Windows
         private void aposentadoriaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var form = new FrmAposentadoria();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+
+        private void açaiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FrmAçai();
             form.MdiParent = this;
             form.Show();
         }
