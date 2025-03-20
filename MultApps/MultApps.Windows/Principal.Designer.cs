@@ -105,13 +105,13 @@
             this.acaiToolStripMenuItem.Name = "acaiToolStripMenuItem";
             this.acaiToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.acaiToolStripMenuItem.Text = "Acai";
-            this.acaiToolStripMenuItem.Click += new System.EventHandler(this.acaiToolStripMenuItem_Click);
             // 
             // açaiToolStripMenuItem
             // 
             this.açaiToolStripMenuItem.Name = "açaiToolStripMenuItem";
             this.açaiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.açaiToolStripMenuItem.Text = "Açai";
+            this.açaiToolStripMenuItem.Click += new System.EventHandler(this.açaiToolStripMenuItem_Click);
             // 
             // Principal
             // 
