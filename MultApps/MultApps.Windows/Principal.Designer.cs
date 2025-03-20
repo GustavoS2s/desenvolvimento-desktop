@@ -109,7 +109,7 @@
             // açaiToolStripMenuItem
             // 
             this.açaiToolStripMenuItem.Name = "açaiToolStripMenuItem";
-            this.açaiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.açaiToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.açaiToolStripMenuItem.Text = "Açai";
             this.açaiToolStripMenuItem.Click += new System.EventHandler(this.açaiToolStripMenuItem_Click);
             // 
@@ -117,8 +117,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = global::MultApps.Windows.Properties.Resources.Captura_de_tela_2025_03_13_1954541;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStripPrincipal);
+            this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStripPrincipal;
             this.Name = "Principal";
