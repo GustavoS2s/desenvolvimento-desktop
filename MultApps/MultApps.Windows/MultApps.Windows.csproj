@@ -172,5 +172,23 @@
   <ItemGroup>
     <None Include="Resources\Captura de tela 2025-03-13 1954541.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MORANGO COB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5358_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images %281%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images %282%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images %283%29.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
