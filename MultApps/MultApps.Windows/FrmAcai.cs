@@ -82,7 +82,6 @@ namespace AcaiApp
             if (!string.IsNullOrEmpty(descricaoTamanho))
                 listBoxPedidos.Items.Add(descricaoTamanho);
 
-            // Adiciona complementos
             if (NudGranola.Value > 0) listBoxPedidos.Items.Add($"Granola (x{NudGranola.Value}) - R$ {(NudGranola.Value * 2.50m):F2}");
             if (NudBanana.Value > 0) listBoxPedidos.Items.Add($"Banana (x{NudBanana.Value}) - R$ {(NudBanana.Value * 2.50m):F2}");
             if (nudMorango.Value > 0) listBoxPedidos.Items.Add($"Morango (x{nudMorango.Value}) - R$ {(nudMorango.Value * 3.00m):F2}");
