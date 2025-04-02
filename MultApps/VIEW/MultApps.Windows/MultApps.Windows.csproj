@@ -190,5 +190,11 @@
   <ItemGroup>
     <None Include="Resources\images %283%29.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLLER\MultApss.Controller\MultApss.Controller.csproj">
+      <Project>{7432eb7e-2d79-4f78-9f5f-c79634f848a1}</Project>
+      <Name>MultApss.Controller</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
