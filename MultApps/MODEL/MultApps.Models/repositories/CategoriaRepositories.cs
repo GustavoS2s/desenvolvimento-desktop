@@ -1,0 +1,29 @@
+﻿using Dapper;
+using Google.Protobuf.Collections;
+using MultApps.Models.Entitites.Abstract;
+using MySql.Data.MySqlClient;
+using System.Data;
+using System.Windows.Markup;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
+
+namespace MultApps.Models.repositories
+{
+    public class CategoriaRepositories
+    {
+        public string ConnectionsString = "Server=localhost;Database=multapps_dev; Uid=root,Pwd=root";
+        public bool CadastrarCategoria(Categoria categoria)
+        {
+            using (IDbConnection db = new MySqlConnection(ConnectionsString))
+            {
+                var comandoSql = @"INSERT INTO Categoria (Nome, Status)
+                                  Values(@Nome, @Status)";
+                var parametros = new DynamicParameters();
+                parametros.Add("@Nome", categoria.Nome);
+                parametros.Add("@Status", categoria.Status);
+ 
+                var resultado = db.Execute(comandoSql, parametros);
+                return resultado > 0;
+            }
+        }
+    }
+}
