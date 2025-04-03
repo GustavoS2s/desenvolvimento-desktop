@@ -10,13 +10,14 @@ namespace MultApps.Models.repositories
 {
     public class CategoriaRepositories
     {
-        public string ConnectionsString = "Server=localhost;Database=multapps_dev; Uid=root,Pwd=root";
+        public string ConnectionString = "Server=localhost;Database=multapps_dev; Uid=root;Pwd=root";
         public bool CadastrarCategoria(Categoria categoria)
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionsString))
+            using (IDbConnection db = new MySqlConnection(ConnectionString))
             {
                 var comandoSql = @"INSERT INTO Categoria (Nome, Status)
                                   Values(@Nome, @Status)";
+
                 var parametros = new DynamicParameters();
                 parametros.Add("@Nome", categoria.Nome);
                 parametros.Add("@Status", categoria.Status);
