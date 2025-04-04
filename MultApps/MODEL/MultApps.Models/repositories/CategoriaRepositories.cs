@@ -2,7 +2,9 @@
 using Google.Protobuf.Collections;
 using MultApps.Models.Entitites.Abstract;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Markup;
 using static Mysqlx.Expect.Open.Types.Condition.Types;
 
@@ -21,10 +23,22 @@ namespace MultApps.Models.repositories
                 var parametros = new DynamicParameters();
                 parametros.Add("@Nome", categoria.Nome);
                 parametros.Add("@Status", categoria.Status);
- 
+
                 var resultado = db.Execute(comandoSql, parametros);
                 return resultado > 0;
             }
         }
+        public List<Categoria> ListarTodasCategorias()
+        {
+            using (IDbConnection db = new MySqlConnection(ConnectionString))
+            {
+                var comandoSql = @"SELECT * FROM Categoria";
+
+                var resultado = db.Query<Categoria>(comandoSql).ToList();
+                return resultado;
+            }
+        }
+
+
     }
 }
