@@ -55,25 +55,6 @@ namespace MultApps.Models.repositories
                 return categoria;
             }
         }
-        public bool CadastrarCategoria(Categoria categoria)
-        {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
-            {
-                var comandoSql = @"INSERT INTO Categoria (Nome, Status)
-                           Values(@Nome, @Status)";
-
-                var parametros = new DynamicParameters();
-                parametros.Add("@Nome", categoria.Nome);
-
-                // Conversão direta de StatusEnum para string
-                string statusString = categoria.Status.ToString().ToLower();
-
-                parametros.Add("@Status", statusString);
-
-                var resultado = db.Execute(comandoSql, parametros);
-                return resultado > 0;
-            }
-        }
 
         public bool AtualizarCategoria(Categoria categoria)
         {
@@ -88,15 +69,29 @@ namespace MultApps.Models.repositories
                 var parametros = new DynamicParameters();
                 parametros.Add("@Nome", categoria.Nome);
 
-                // Conversão direta de StatusEnum para string
                 string statusString = categoria.Status.ToString().ToLower();
 
                 parametros.Add("@Status", statusString);
                 parametros.Add("@Id", categoria.Id);
 
-                var resultado = db.Execute(comandoSql, parametros);
-                return resultado > 0;
+                var resposta = db.Execute(comandoSql, parametros);
+                return resposta > 0;
             }
+        }
+
+        public bool DeletarCategoria(int id)
+        { 
+            using (IDbConnection db = new MySqlConnection(ConnectionString))
+            {
+                var comandoSql = @"DELETE FROM Categoria WHERE Id = @Id";
+
+                var parametros = new DynamicParameters();
+                parametros.Add("@Id", id);
+
+                var resposta = db.Execute(comandoSql, parametros);
+                return resposta > 0;
+            }
+        
         }
 
 

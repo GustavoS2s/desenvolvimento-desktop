@@ -20,16 +20,25 @@ namespace MultApps.Windows
             var categoriaRepositories = new CategoriaRepositories();
             var categoria = new Categoria();
 
-            if (int.TryParse(txtId.Text, out int categoriaId))
+            if (string.IsNullOrEmpty(txtId.Text))
             {
-                categoria.Id = categoriaId;
+                var resultado = categoriaRepositories.CadastrarCategoria(categoria);
+                if (resultado)
+                {
+                    MessageBox.Show("Categoria cadastra com sucesso");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao cadastrar categoria");
+                }
             }
             else
             {
-                categoria.Id = 0; 
+                categoria.Id = int.Parse(txtId.Text);
+                var resultado = categoriaRepositories.AtualizarCategoria(categoria);
             }
 
-            categoria.Nome = txtNome.Text;
+                categoria.Nome = txtNome.Text;
             categoria.Status = (StatusEnum)cmbStatus.SelectedIndex;
 
             if (categoria.Id == 0)
@@ -57,15 +66,13 @@ namespace MultApps.Windows
                 }
             }
 
-            // Recarregar as categorias no DataGridView
             CarregarTodasCategorias();
 
-            // Limpar os campos após salvar
             txtId.Clear();
             txtNome.Clear();
             txtDataCriacao.Clear();
             txtDataAlteracao.Clear();
-            cmbStatus.SelectedIndex = -1; // Deixa o ComboBox desmarcado
+            cmbStatus.SelectedIndex = -1; 
         }
 
 
@@ -140,6 +147,9 @@ namespace MultApps.Windows
             cmbStatus.SelectedIndex = (int)categoria.Status;
             txtDataCriacao.Text = categoria.DataCriacao.ToString("dd/MM/yyyy HH:mm");
             txtDataAlteracao.Text = categoria.DataAlteracao.ToString("dd/MM/yyyy HH:mm");
+
+            btnDeletar.Enabled = true;
+            btnSalvar.Text = "Salvar alterações";
         }
 
 
@@ -152,5 +162,25 @@ namespace MultApps.Windows
             cmbStatus.SelectedIndex = -1;
         }
 
+        private void btnDeletar_Click(object sender, EventArgs e)
+        {
+            var categoriaId = int.Parse(txtId.Text);
+
+            var categoriaRepositories = new CategoriaRepositories();
+            var suceeso = categoriaRepositories.DeletarCategoria(categoriaId);
+
+            if (suceeso)
+            {
+                MessageBox.Show("Categoria deletada com sucesso");
+                CarregarTodasCategorias();
+            }
+            else
+            {
+                MessageBox.Show($"Erro ao deletar categoria: {txtNome.Text}");
+                CarregarTodasCategorias();
+            }
+            btnDeletar.Enabled = false;
+            btnLimpar_Click(sender, e);
+        }
     }
 }
