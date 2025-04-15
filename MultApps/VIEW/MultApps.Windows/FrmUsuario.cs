@@ -4,6 +4,8 @@ using MultApps.Models.Enums;
 using MultApps.Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MultApps.Windows
@@ -22,31 +24,50 @@ namespace MultApps.Windows
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            string senhaDigitada = txtSenha.Text;
+            string senhaFinal;
+
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                // Novo cadastro: sempre hashear a senha digitada
+                senhaFinal = HashPassword(senhaDigitada);
+            }
+            else
+            {
+                // Edição: se a senha foi alterada, rehash. Se não, usa a original.
+                senhaFinal = string.IsNullOrWhiteSpace(senhaDigitada) ? _senhaOriginalHash : HashPassword(senhaDigitada);
+            }
+
             var usuario = new Usuario
             {
+                Id = string.IsNullOrEmpty(txtId.Text) ? 0 : Convert.ToInt32(txtId.Text),
                 NomeCompleto = txtNome.Text,
                 CPF = txtCpf.Text,
                 Email = txtEmail.Text,
-                Senha = txtSenha.Text,
-                DataCriacao = DateTime.Now,
+                Senha = senhaFinal,
+                DataCriacao = string.IsNullOrEmpty(txtDataCriacao.Text) ? DateTime.Now : Convert.ToDateTime(txtDataCriacao.Text),
                 DataAlteracao = DateTime.Now,
                 Status = (StatusEnum)cmbStatus.SelectedIndex
             };
 
-            bool resultado = _usuarioRepo.CadastrarUsuario(usuario);
+            bool resultado;
+
+            if (usuario.Id == 0)
+                resultado = _usuarioRepo.CadastrarUsuario(usuario);
+            else
+                resultado = _usuarioRepo.AtualizarUsuario(usuario);
 
             if (resultado)
             {
-                MessageBox.Show("Usuário cadastrado com sucesso!");
+                MessageBox.Show("Usuário salvo com sucesso!");
                 LimparCampos();
                 CarregarTodosUsuarios();
             }
             else
             {
-                MessageBox.Show("Erro ao cadastrar usuário.");
+                MessageBox.Show("Erro ao salvar usuário.");
             }
         }
-
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             LimparCampos();
@@ -178,7 +199,8 @@ namespace MultApps.Windows
             txtNome.Text = usuario.NomeCompleto;
             txtCpf.Text = usuario.CPF;
             txtEmail.Text = usuario.Email;
-            txtSenha.Text = usuario.Senha;
+            txtSenha.Text = ""; 
+            _senhaOriginalHash = usuario.Senha; 
             txtDataCriacao.Text = usuario.DataCriacao.ToString("dd/MM/yyyy HH:mm");
             txtDataAlteracao.Text = usuario.DataAlteracao?.ToString("dd/MM/yyyy HH:mm");
             cmbStatus.SelectedIndex = (int)usuario.Status;
@@ -248,5 +270,15 @@ namespace MultApps.Windows
             btnSalvar.Text = "Salvar Alterações";
             btnDeletar.Enabled = true;
         }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(inputBytes);
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
+        private string _senhaOriginalHash;
     }
 }

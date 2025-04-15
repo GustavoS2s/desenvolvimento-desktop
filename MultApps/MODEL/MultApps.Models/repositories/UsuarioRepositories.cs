@@ -229,5 +229,43 @@ namespace MultApps.Models.Repositories
 
             return usuarios;
         }
+        public bool AtualizarUsuario(Usuario usuario)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                UPDATE Usuarios SET
+                    NomeCompleto = @NomeCompleto,
+                    CPF = @CPF,
+                    Email = @Email,
+                    Senha = @Senha,
+                    DataUltimoAcesso = @DataUltimoAcesso,
+                    Status = @Status
+                WHERE Id = @Id;";
+
+                    var command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@NomeCompleto", usuario.NomeCompleto);
+                    command.Parameters.AddWithValue("@CPF", usuario.CPF);
+                    command.Parameters.AddWithValue("@Email", usuario.Email);
+                    command.Parameters.AddWithValue("@Senha", usuario.Senha);
+                    command.Parameters.AddWithValue("@DataUltimoAcesso", usuario.DataAlteracao ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Status", (int)usuario.Status);
+                    command.Parameters.AddWithValue("@Id", usuario.Id);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao atualizar usuário: " + ex.Message);
+                return false;
+            }
+        }
+
     }
 }
