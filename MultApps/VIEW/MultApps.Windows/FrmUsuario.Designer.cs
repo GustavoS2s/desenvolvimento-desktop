@@ -70,9 +70,9 @@
             // 
             this.dataGridViewUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUsuarios.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridViewUsuarios.Location = new System.Drawing.Point(0, 267);
+            this.dataGridViewUsuarios.Location = new System.Drawing.Point(0, 283);
             this.dataGridViewUsuarios.Name = "dataGridViewUsuarios";
-            this.dataGridViewUsuarios.Size = new System.Drawing.Size(800, 183);
+            this.dataGridViewUsuarios.Size = new System.Drawing.Size(810, 183);
             this.dataGridViewUsuarios.TabIndex = 29;
             this.dataGridViewUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewUsuarios_CellDoubleClick_1);
             // 
@@ -275,9 +275,9 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(10, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(422, 45);
+            this.label3.Size = new System.Drawing.Size(386, 45);
             this.label3.TabIndex = 27;
-            this.label3.Text = "CATEGORIAS DE PRODUTOS";
+            this.label3.Text = "CADASTRO DE USUARIOS";
             // 
             // cmbFiltroStatus
             // 
@@ -286,7 +286,7 @@
             "Inativo",
             "Ativo",
             "Excluido"});
-            this.cmbFiltroStatus.Location = new System.Drawing.Point(484, 37);
+            this.cmbFiltroStatus.Location = new System.Drawing.Point(13, 254);
             this.cmbFiltroStatus.Name = "cmbFiltroStatus";
             this.cmbFiltroStatus.Size = new System.Drawing.Size(121, 21);
             this.cmbFiltroStatus.TabIndex = 31;
@@ -297,7 +297,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(810, 466);
             this.Controls.Add(this.cmbFiltroStatus);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.dataGridViewUsuarios);
