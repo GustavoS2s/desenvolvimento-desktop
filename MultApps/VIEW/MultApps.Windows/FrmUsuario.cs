@@ -29,12 +29,10 @@ namespace MultApps.Windows
 
             if (string.IsNullOrWhiteSpace(txtId.Text))
             {
-                // Novo cadastro: sempre hashear a senha digitada
                 senhaFinal = HashPassword(senhaDigitada);
             }
             else
             {
-                // Edição: se a senha foi alterada, rehash. Se não, usa a original.
                 senhaFinal = string.IsNullOrWhiteSpace(senhaDigitada) ? _senhaOriginalHash : HashPassword(senhaDigitada);
             }
 
