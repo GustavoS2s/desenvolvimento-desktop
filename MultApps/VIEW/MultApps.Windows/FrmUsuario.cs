@@ -27,6 +27,8 @@ namespace MultApps.Windows
             string senhaDigitada = txtSenha.Text;
             string senhaFinal;
 
+            if (!TemCampoEmBranco(sender, e))
+                return;
             if (string.IsNullOrWhiteSpace(txtId.Text))
             {
                 senhaFinal = HashPassword(senhaDigitada);
@@ -38,6 +40,7 @@ namespace MultApps.Windows
 
             var usuario = new Usuario
             {
+                
                 Id = string.IsNullOrEmpty(txtId.Text) ? 0 : Convert.ToInt32(txtId.Text),
                 NomeCompleto = txtNome.Text,
                 CPF = txtCpf.Text,
@@ -66,6 +69,54 @@ namespace MultApps.Windows
                 MessageBox.Show("Erro ao salvar usuário.");
             }
         }
+
+        public bool TemCampoEmBranco(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtNome.Text))
+            {
+                MessageBox.Show("O campo Nome é obrigatório.");
+                txtNome.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtCpf.Text))
+            {
+                MessageBox.Show("O campo CPF é obrigatório.");
+                txtCpf.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("O campo Email é obrigatório.");
+                txtEmail.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtSenha.Text))
+            {
+                MessageBox.Show("O campo Senha é obrigatório.");
+                txtSenha.Focus();
+                return false;
+            }
+            if (cmbStatus.SelectedIndex == -1)
+            {
+                MessageBox.Show("O campo Status é obrigatório.");
+                cmbStatus.Focus();
+                return false;
+            }
+            if (txtDataCriacao.Text == string.Empty)
+            {
+                MessageBox.Show("O campo Data de Criação é obrigatório.");
+                txtDataCriacao.Focus();
+                return false;
+            }
+            if (txtDataAlteracao.Text == string.Empty)
+            {
+                MessageBox.Show("O campo Data de Alteração é obrigatório.");
+                txtDataAlteracao.Focus();
+                return false;
+            }
+            return true;
+        }
+
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             LimparCampos();

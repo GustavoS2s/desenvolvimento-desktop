@@ -3,6 +3,8 @@ using MultApps.Models.Enums;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System;
+using System.Data;
+using Dapper;
 
 namespace MultApps.Models.Repositories
 {
@@ -263,6 +265,27 @@ namespace MultApps.Models.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine("Erro ao atualizar usuário: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool EmaiLExiste(string email)
+        {
+            try
+            {
+                using (IDbConnection db = new MySqlConnection(_connectionString))
+                {
+                    var comandoSql= "SELECT COUNT(*) FROM Usuarios WHERE Email = @Email;";
+                    var parametros = new DynamicParameters();
+                    parametros.Add("@Email", email);
+
+                    var resultado = db.ExecuteScalar<int>(comandoSql, parametros);
+                    return resultado > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao verificar se o e-mail existe: " + ex.Message);
                 return false;
             }
         }
