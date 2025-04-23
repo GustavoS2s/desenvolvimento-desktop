@@ -61,7 +61,7 @@
             this.btnLimpar.Location = new System.Drawing.Point(670, 51);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpar.TabIndex = 30;
+            this.btnLimpar.TabIndex = 1;
             this.btnLimpar.Text = "LIMPAR";
             this.btnLimpar.UseVisualStyleBackColor = false;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
@@ -109,21 +109,21 @@
             this.txtSenha.Location = new System.Drawing.Point(638, 44);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(100, 20);
-            this.txtSenha.TabIndex = 42;
+            this.txtSenha.TabIndex = 6;
             // 
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(393, 44);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(203, 20);
-            this.txtEmail.TabIndex = 41;
+            this.txtEmail.TabIndex = 5;
             // 
             // txtCpf
             // 
             this.txtCpf.Location = new System.Drawing.Point(271, 44);
             this.txtCpf.Name = "txtCpf";
             this.txtCpf.Size = new System.Drawing.Size(100, 20);
-            this.txtCpf.TabIndex = 40;
+            this.txtCpf.TabIndex = 4;
             // 
             // label9
             // 
@@ -161,7 +161,7 @@
             this.btnDeletar.Location = new System.Drawing.Point(557, 139);
             this.btnDeletar.Name = "btnDeletar";
             this.btnDeletar.Size = new System.Drawing.Size(75, 23);
-            this.btnDeletar.TabIndex = 36;
+            this.btnDeletar.TabIndex = 10;
             this.btnDeletar.Text = "Deletar";
             this.btnDeletar.UseVisualStyleBackColor = true;
             this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);
@@ -176,7 +176,7 @@
             this.cmbStatus.Location = new System.Drawing.Point(408, 105);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(121, 21);
-            this.cmbStatus.TabIndex = 34;
+            this.cmbStatus.TabIndex = 9;
             // 
             // btnSalvar
             // 
@@ -184,7 +184,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(638, 139);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(110, 23);
-            this.btnSalvar.TabIndex = 33;
+            this.btnSalvar.TabIndex = 11;
             this.btnSalvar.Text = "SALVAR";
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -194,7 +194,7 @@
             this.txtDataAlteracao.Location = new System.Drawing.Point(174, 105);
             this.txtDataAlteracao.Name = "txtDataAlteracao";
             this.txtDataAlteracao.Size = new System.Drawing.Size(165, 20);
-            this.txtDataAlteracao.TabIndex = 32;
+            this.txtDataAlteracao.TabIndex = 8;
             // 
             // txtDataCriacao
             // 
@@ -202,14 +202,14 @@
             this.txtDataCriacao.Location = new System.Drawing.Point(18, 105);
             this.txtDataCriacao.Name = "txtDataCriacao";
             this.txtDataCriacao.Size = new System.Drawing.Size(100, 20);
-            this.txtDataCriacao.TabIndex = 31;
+            this.txtDataCriacao.TabIndex = 7;
             // 
             // txtNome
             // 
             this.txtNome.Location = new System.Drawing.Point(143, 38);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(100, 20);
-            this.txtNome.TabIndex = 30;
+            this.txtNome.TabIndex = 3;
             // 
             // txtId
             // 
@@ -217,7 +217,7 @@
             this.txtId.Location = new System.Drawing.Point(18, 38);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(100, 20);
-            this.txtId.TabIndex = 29;
+            this.txtId.TabIndex = 2;
             // 
             // label6
             // 
@@ -289,7 +289,7 @@
             this.cmbFiltroStatus.Location = new System.Drawing.Point(13, 254);
             this.cmbFiltroStatus.Name = "cmbFiltroStatus";
             this.cmbFiltroStatus.Size = new System.Drawing.Size(121, 21);
-            this.cmbFiltroStatus.TabIndex = 31;
+            this.cmbFiltroStatus.TabIndex = 12;
             this.cmbFiltroStatus.SelectedIndexChanged += new System.EventHandler(this.cmbFiltroStatus_SelectedIndexChanged);
             // 
             // FrmUsuario
@@ -305,6 +305,7 @@
             this.Controls.Add(this.label3);
             this.Name = "FrmUsuario";
             this.Text = "FrmUsuario";
+            this.Load += new System.EventHandler(this.FrmUsuario_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuarios)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

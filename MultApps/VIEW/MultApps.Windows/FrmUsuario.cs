@@ -17,6 +17,8 @@ namespace MultApps.Windows
         public FrmUsuario()
         {
             InitializeComponent();
+            var status = new[] { "inativo", "ativo" };
+            var filtros = new[] { "Todos", "Ativo", "Inativo" };
             _usuarioRepo = new UsuarioRepositories();
             CarregarFiltroStatus();
             CarregarTodosUsuarios();
@@ -40,7 +42,7 @@ namespace MultApps.Windows
 
             var usuario = new Usuario
             {
-                
+
                 Id = string.IsNullOrEmpty(txtId.Text) ? 0 : Convert.ToInt32(txtId.Text),
                 NomeCompleto = txtNome.Text,
                 CPF = txtCpf.Text,
@@ -150,7 +152,7 @@ namespace MultApps.Windows
             cmbStatus.Items.Add("Excluido");
         }
 
-        
+
 
         private void cmbFiltroStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -248,8 +250,8 @@ namespace MultApps.Windows
             txtNome.Text = usuario.NomeCompleto;
             txtCpf.Text = usuario.CPF;
             txtEmail.Text = usuario.Email;
-            txtSenha.Text = ""; 
-            _senhaOriginalHash = usuario.Senha; 
+            txtSenha.Text = "";
+            _senhaOriginalHash = usuario.Senha;
             txtDataCriacao.Text = usuario.DataCriacao.ToString("dd/MM/yyyy HH:mm");
             txtDataAlteracao.Text = usuario.DataAlteracao?.ToString("dd/MM/yyyy HH:mm");
             cmbStatus.SelectedIndex = (int)usuario.Status;
@@ -261,17 +263,17 @@ namespace MultApps.Windows
         {
             try
             {
-               
+
                 int usuarioId = Convert.ToInt32(txtId.Text);
 
-                
+
                 var usuarioRepo = new UsuarioRepositories();
                 bool sucesso = usuarioRepo.DeletarUsuario(usuarioId);
 
                 if (sucesso)
                 {
                     MessageBox.Show("Usuário deletado com sucesso!");
-                    AtualizarListaUsuarios(); 
+                    AtualizarListaUsuarios();
                 }
                 else
                 {
@@ -288,7 +290,7 @@ namespace MultApps.Windows
         {
             var usuarioRepo = new UsuarioRepositories();
             var usuarios = usuarioRepo.ObterUsuarios();
-            dataGridViewUsuarios.DataSource = usuarios; 
+            dataGridViewUsuarios.DataSource = usuarios;
         }
 
         private void dataGridViewUsuarios_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -329,5 +331,31 @@ namespace MultApps.Windows
             }
         }
         private string _senhaOriginalHash;
+
+        private void FrmUsuario_Load(object sender, EventArgs e)
+        {
+            CarregarUsuarios();
+        }
+
+        private void CarregarUsuarios()
+        {
+            var usuarios = _usuarioRepo.ListarTodosUsuarios();
+            dataGridViewUsuarios.DataSource = usuarios;
+            
+            dataGridViewUsuarios.Columns["Senha"].Visible = false;
+
+        }
+
+        private void LimparLugares()
+        {
+            txtNome.Clear();
+            txtCpf.Clear();
+            txtEmail.Clear();
+            txtSenha.Clear();
+            txtDataCriacao.Clear();
+            txtDataAlteracao.Clear();
+            cmbStatus.SelectedIndex = -1;
+        }
+
     }
 }
