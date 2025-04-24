@@ -2,6 +2,7 @@
 using MultApps.Models.Entities.Abstract;
 using MultApps.Models.Enums;
 using MultApps.Models.Repositories;
+using MultApps.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -27,18 +28,9 @@ namespace MultApps.Windows
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             string senhaDigitada = txtSenha.Text;
-            string senhaFinal;
 
             if (!TemCampoEmBranco(sender, e))
                 return;
-            if (string.IsNullOrWhiteSpace(txtId.Text))
-            {
-                senhaFinal = HashPassword(senhaDigitada);
-            }
-            else
-            {
-                senhaFinal = string.IsNullOrWhiteSpace(senhaDigitada) ? _senhaOriginalHash : HashPassword(senhaDigitada);
-            }
 
             var usuario = new Usuario
             {
@@ -47,7 +39,7 @@ namespace MultApps.Windows
                 NomeCompleto = txtNome.Text,
                 CPF = txtCpf.Text,
                 Email = txtEmail.Text,
-                Senha = senhaFinal,
+                Senha = CriptografiaService.Criptografar(txtSenha.Text),
                 DataCriacao = string.IsNullOrEmpty(txtDataCriacao.Text) ? DateTime.Now : Convert.ToDateTime(txtDataCriacao.Text),
                 DataAlteracao = DateTime.Now,
                 Status = (StatusEnum)cmbStatus.SelectedIndex
@@ -261,28 +253,30 @@ namespace MultApps.Windows
 
         private void btnDeletar_Click(object sender, EventArgs e)
         {
-            try
+            // Verifica se há uma linha selecionada ou ativa
+            if (dataGridViewUsuarios.CurrentRow != null)
             {
+                // Obtém o ID do usuário da primeira célula da linha ativa
+                var idUsuario = Convert.ToInt32(dataGridViewUsuarios.CurrentRow.Cells[0].Value);
 
-                int usuarioId = Convert.ToInt32(txtId.Text);
-
-
-                var usuarioRepo = new UsuarioRepositories();
-                bool sucesso = usuarioRepo.DeletarUsuario(usuarioId);
-
-                if (sucesso)
+                // Confirmação de exclusão
+                var confirmResult = MessageBox.Show("Tem certeza que deseja deletar este usuário?",
+                                                    "Confirmação",
+                                                    MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
                 {
+                    // Chama o método de exclusão no repositório
+                    _usuarioRepo.DeletarUsuario(idUsuario);
+
+                    // Atualiza o DataGridView
+                    CarregarUsuarios();
+
                     MessageBox.Show("Usuário deletado com sucesso!");
-                    AtualizarListaUsuarios();
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao deletar o usuário. Tente novamente.");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Erro: " + ex.Message);
+                MessageBox.Show("Por favor, selecione um usuário para deletar.");
             }
         }
 
@@ -335,15 +329,28 @@ namespace MultApps.Windows
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
             CarregarUsuarios();
+
+            if (IsNovoRegistro()) 
+            {
+                txtDataCriacao.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm"); 
+                txtDataAlteracao.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm"); 
+            }
+        }
+
+        private bool IsNovoRegistro()
+        {
+            return string.IsNullOrEmpty(txtId.Text) || txtId.Text == "0";
         }
 
         private void CarregarUsuarios()
         {
             var usuarios = _usuarioRepo.ListarTodosUsuarios();
             dataGridViewUsuarios.DataSource = usuarios;
-            
-            dataGridViewUsuarios.Columns["Senha"].Visible = false;
 
+            if (dataGridViewUsuarios.Columns["Senha"] != null)
+            {
+                dataGridViewUsuarios.Columns["Senha"].Visible = false;
+            }
         }
 
         private void LimparLugares()

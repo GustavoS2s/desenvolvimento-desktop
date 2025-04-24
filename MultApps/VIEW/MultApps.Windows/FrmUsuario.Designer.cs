@@ -191,6 +191,7 @@
             // 
             // txtDataAlteracao
             // 
+            this.txtDataAlteracao.Enabled = false;
             this.txtDataAlteracao.Location = new System.Drawing.Point(174, 105);
             this.txtDataAlteracao.Name = "txtDataAlteracao";
             this.txtDataAlteracao.Size = new System.Drawing.Size(165, 20);
