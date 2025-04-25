@@ -318,11 +318,11 @@ namespace MultApps.Models.Repositories
         {
                 using (IDbConnection db = new MySqlConnection(_connectionString))
                 {
-                    var comandoSql = @"UPDATE Usuarios
-                           SET senha = @NSenha;
-                           WHERE Email = @Email";
+                var comandoSql = @"UPDATE Usuarios
+                   SET Senha = @Senha
+                   WHERE Email = @Email";
 
-                    var parametros = new DynamicParameters();
+                var parametros = new DynamicParameters();
                     parametros.Add("@Senha", novaSenha);
                     parametros.Add("@Email", email);
 
