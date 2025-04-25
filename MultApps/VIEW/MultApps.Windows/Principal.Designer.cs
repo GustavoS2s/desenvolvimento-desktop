@@ -37,7 +37,10 @@
             this.aposentadoriaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.acaiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.açaiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabelUsuario = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripPrincipal.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripPrincipal
@@ -113,6 +116,25 @@
             this.açaiToolStripMenuItem.Text = "Açai";
             this.açaiToolStripMenuItem.Click += new System.EventHandler(this.açaiToolStripMenuItem_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabelUsuario});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 425);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 25);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabelUsuario
+            // 
+            this.statusLabelUsuario.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabelUsuario.ForeColor = System.Drawing.Color.Blue;
+            this.statusLabelUsuario.Name = "statusLabelUsuario";
+            this.statusLabelUsuario.Size = new System.Drawing.Size(151, 20);
+            this.statusLabelUsuario.Text = "toolStripStatusLabel1";
+            this.statusLabelUsuario.VisitedLinkColor = System.Drawing.Color.Purple;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -121,6 +143,7 @@
             this.BackgroundImage = global::MultApps.Windows.Properties.Resources.Captura_de_tela_2025_03_13_1954541;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStripPrincipal);
             this.DoubleBuffered = true;
             this.IsMdiContainer = true;
@@ -129,8 +152,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Principal_Load);
             this.menuStripPrincipal.ResumeLayout(false);
             this.menuStripPrincipal.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,5 +173,7 @@
         private System.Windows.Forms.ToolStripMenuItem aposentadoriaToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem acaiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem açaiToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelUsuario;
     }
 }

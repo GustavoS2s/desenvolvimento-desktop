@@ -16,7 +16,7 @@ namespace MultApps.Windows
         {
             SplashScreen splash = new SplashScreen();
             splash.ShowDialog();
-            Application.Run(new FrmCategoria());
+            Application.Run(new frmSistema());
             Application.EnableVisualStyles();
         }
     }

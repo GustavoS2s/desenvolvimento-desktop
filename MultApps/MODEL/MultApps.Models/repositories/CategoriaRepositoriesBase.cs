@@ -7,22 +7,16 @@ namespace MultApps.Models.repositories
 {
     public class CategoriaRepositoriesBase
     {
-        private string ConnectionString;
+        public string ConnectionString { get; set; }
 
-        public bool CadastrarCategoria(Categoria categoria)
+        public CategoriaRepositoriesBase(string connectionString)
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
-            {
-                var comandoSql = @"INSERT INTO Categoria (Nome, Status)
-                                  Values(@Nome, @Status)";
+            ConnectionString = connectionString;
+        }
 
-                var parametros = new DynamicParameters();
-                parametros.Add("@Nome", categoria.Nome);
-                parametros.Add("@Status", categoria.Status);
-
-                var resultado = db.Execute(comandoSql, parametros);
-                return resultado > 0;
-            }
+        public CategoriaRepositoriesBase()
+        {
+            ConnectionString = "server=localhost;user=root;database=multapps_dev;password=root;";
         }
     }
 }

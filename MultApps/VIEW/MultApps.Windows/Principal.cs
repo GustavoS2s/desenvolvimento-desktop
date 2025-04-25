@@ -1,4 +1,5 @@
 ﻿using AcaiApp;
+using MultApps.Models.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,15 @@ namespace MultApps.Windows
 {
     public partial class Principal: Form
     {
+        public Usuario UsuarioLogado { get; set; }
         public Principal()
         {
             InitializeComponent();
+        }
+        public Principal(Usuario usuario)
+        {
+            InitializeComponent();
+            UsuarioLogado = usuario;
         }
 
         private void menuCalculadoraImc_Click(object sender, EventArgs e)
@@ -49,7 +56,10 @@ namespace MultApps.Windows
             form.Show();
         }
 
-
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            statusLabelUsuario.Text = UsuarioLogado.NomeCompleto;
+        }
     }
 
 }
