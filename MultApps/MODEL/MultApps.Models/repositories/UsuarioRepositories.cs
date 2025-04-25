@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System;
 using System.Data;
 using Dapper;
+using System.Linq;
+using MultApps.Models.Entitites.Abstract;
 
 namespace MultApps.Models.Repositories
 {
@@ -182,13 +184,13 @@ namespace MultApps.Models.Repositories
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
-                    string query = "UPDATE Usuarios SET Status = @Status WHERE Id = @Id;"; 
+                    string query = "UPDATE Usuarios SET Status = @Status WHERE Id = @Id;";
                     var command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Status", (int)StatusEnum.Excluido);  
+                    command.Parameters.AddWithValue("@Status", (int)StatusEnum.Excluido);
                     command.Parameters.AddWithValue("@Id", usuarioId);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; 
+                    return rowsAffected > 0;
                 }
             }
             catch (Exception ex)
@@ -206,7 +208,7 @@ namespace MultApps.Models.Repositories
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT * FROM Usuarios";  
+                    string query = "SELECT * FROM Usuarios";
                     var command = new MySqlCommand(query, connection);
 
                     using (var reader = command.ExecuteReader())
@@ -275,7 +277,7 @@ namespace MultApps.Models.Repositories
             {
                 using (IDbConnection db = new MySqlConnection(_connectionString))
                 {
-                    var comandoSql= "SELECT COUNT(*) FROM Usuarios WHERE Email = @Email;";
+                    var comandoSql = "SELECT COUNT(*) FROM Usuarios WHERE Email = @Email;";
                     var parametros = new DynamicParameters();
                     parametros.Add("@Email", email);
 
@@ -290,5 +292,43 @@ namespace MultApps.Models.Repositories
             }
         }
 
+        public Usuario ObterUsuarioPorEmail(string email)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                var comandoSql = @"SELECT 
+                                    id AS Id, 
+                                    NomeCompleto AS Nome,
+                                    CPF AS Cpf, 
+                                    Senha AS Senha,     
+                                    Email AS email,
+                                    DataCadastro AS DataCriacao,
+                                    dataUltimoAcesso AS DataUltimoAcesso, 
+                                    Status AS Status
+                                   FROM Usuarios 
+                                   WHERE email = @Email";
+                var parametros = new DynamicParameters();
+                parametros.Add("@Email", email);
+                var resultado = db.Query<Usuario>(comandoSql, parametros).FirstOrDefault();
+                return resultado;
+            }
+        }
+
+        public bool AtualizarSenha(string novaSenha, string email)
+        {
+                using (IDbConnection db = new MySqlConnection(_connectionString))
+                {
+                    var comandoSql = @"UPDATE Usuarios
+                           SET senha = @NSenha;
+                           WHERE Email = @Email";
+
+                    var parametros = new DynamicParameters();
+                    parametros.Add("@Senha", novaSenha);
+                    parametros.Add("@Email", email);
+
+                    var resposta = db.Execute(comandoSql, parametros);
+                    return resposta > 0;
+                }
+        }
     }
 }

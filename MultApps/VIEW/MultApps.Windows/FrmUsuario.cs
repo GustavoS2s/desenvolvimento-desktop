@@ -144,8 +144,6 @@ namespace MultApps.Windows
             cmbStatus.Items.Add("Excluido");
         }
 
-
-
         private void cmbFiltroStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             CarregarTodosUsuarios();
