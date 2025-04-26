@@ -61,5 +61,4 @@ namespace MultApps.Windows
             statusLabelUsuario.Text = UsuarioLogado.NomeCompleto;
         }
     }
-
 }

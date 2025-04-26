@@ -1,5 +1,4 @@
-﻿using MultApps.Models.Entities;
-using MultApps.Models.Entities.Abstract;
+﻿using MultApps.Models.Entities.Abstract;
 using MultApps.Models.Enums;
 using MultApps.Models.Repositories;
 using MultApps.Models.Services;

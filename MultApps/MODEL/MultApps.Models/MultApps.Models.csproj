@@ -109,6 +109,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="repositories\CategoriaRepositories.cs" />
     <Compile Include="repositories\CategoriaRepositoriesBase.cs" />
+    <Compile Include="repositories\ProdutoRepositories.cs" />
     <Compile Include="repositories\UsuarioRepositories.cs" />
     <Compile Include="Services\CriptografiaService.cs" />
   </ItemGroup>

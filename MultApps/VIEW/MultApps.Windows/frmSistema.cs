@@ -1,16 +1,7 @@
-﻿using MultApps.Models.Entities.Abstract;
-using MultApps.Models.Enums;
+﻿using MultApps.Models.Enums;
 using MultApps.Models.Repositories;
 using MultApps.Models.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MultApps.Windows
