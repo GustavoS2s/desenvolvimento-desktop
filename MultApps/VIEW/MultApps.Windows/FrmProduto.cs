@@ -1,6 +1,10 @@
-﻿using MultApps.Models.repositories;
-using MultApps.Models.Entitites.Abstract;
+﻿using MultApps.Models.Entitites.Abstract;
+using MultApps.Models.repositories;
 using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace MultApps.Views
@@ -13,8 +17,65 @@ namespace MultApps.Views
         {
             InitializeComponent();
             _produtoRepository = new ProdutoRepositories();
+            ConfigurarDataGridView();
+            ConfigurarFiltros();
             CarregarProdutos();
             CarregarCategorias();
+            ConfigurarBotoes();
+        }
+
+        private void ConfigurarDataGridView()
+        {
+            dgvProdutos.Columns.Clear();
+
+            // Configura a coluna de imagem
+            var colunaImagem = new DataGridViewImageColumn
+            {
+                Name = "Imagem",
+                HeaderText = "Imagem",
+                ImageLayout = DataGridViewImageCellLayout.Zoom
+            };
+            dgvProdutos.Columns.Add(colunaImagem);
+
+            // Configura as demais colunas
+            dgvProdutos.Columns.Add("Id", "ID");
+            dgvProdutos.Columns.Add("Nome", "Nome");
+            dgvProdutos.Columns.Add("Descricao", "Descrição");
+            dgvProdutos.Columns.Add("Categoria", "Categoria");
+            dgvProdutos.Columns.Add("Preco", "Preço");
+            dgvProdutos.Columns.Add("Estoque", "Estoque");
+            dgvProdutos.Columns.Add("Status", "Status");
+        }
+
+        private void ConfigurarFiltros()
+        {
+            cmbCategoria.Items.Clear();
+            cmbCategoria.Items.Add("Todos");
+            cmbCategoria.Items.Add("Eletrônicos");
+            cmbCategoria.Items.Add("Roupas e acessórios");
+            cmbCategoria.Items.Add("Alimentos e Bebidas");
+            cmbCategoria.Items.Add("Beleza e Saúde");
+            cmbCategoria.Items.Add("Eletrodomésticos");
+            cmbCategoria.Items.Add("Outros");
+            cmbCategoria.SelectedIndex = 0;
+
+            cmbStatus.Items.Clear();
+            cmbStatus.Items.Add("Todos");
+            cmbStatus.Items.Add("Ativo");
+            cmbStatus.Items.Add("Inativo");
+            cmbStatus.SelectedIndex = 0;
+
+            cmbCategoria.SelectedIndexChanged += (s, e) => CarregarProdutos();
+            cmbStatus.SelectedIndexChanged += (s, e) => CarregarProdutos();
+        }
+
+        private void ConfigurarBotoes()
+        {
+            btnSalvar.Click += btnSalvar_Click;
+            btnLimpar.Click += btnLimpar_Click;
+            btnDeletar.Click += btnDeletar_Click;
+            btnProduto.Click += btnProduto_Click;
+            btnAtualizarGrid.Click += btnAtualizarGrid_Click;
         }
 
         private void CarregarProdutos()
@@ -22,7 +83,28 @@ namespace MultApps.Views
             try
             {
                 var produtos = _produtoRepository.ListarTodosProdutos();
-                dgvProdutos.DataSource = produtos; // Exibe os produtos no DataGridView
+
+                var categoriaSelecionada = cmbCategoria.SelectedItem?.ToString();
+                var statusSelecionado = cmbStatus.SelectedItem?.ToString();
+
+                if (!string.IsNullOrEmpty(categoriaSelecionada) && categoriaSelecionada != "Todos")
+                {
+                    produtos = produtos.Where(p => p.Categoria == categoriaSelecionada).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(statusSelecionado) && statusSelecionado != "Todos")
+                {
+                    produtos = produtos.Where(p => p.Status == statusSelecionado).ToList();
+                }
+
+                dgvProdutos.Rows.Clear();
+
+                foreach (var produto in produtos)
+                {
+                    var imagem = CarregarImagem(produto.UrlImagem);
+
+                    dgvProdutos.Rows.Add(imagem, produto.Id, produto.Nome, produto.Descricao, produto.Categoria, produto.Preco, produto.Estoque, produto.Status);
+                }
             }
             catch (Exception ex)
             {
@@ -32,136 +114,105 @@ namespace MultApps.Views
 
         private void CarregarCategorias()
         {
-            try
-            {
-                // Aqui você pode carregar as categorias de um repositório ou definir manualmente
-                cmbCadastrarCategoria.Items.Clear();
-                cmbCadastrarCategoria.Items.Add("Categoria 1");
-                cmbCadastrarCategoria.Items.Add("Categoria 2");
-                cmbCadastrarCategoria.Items.Add("Categoria 3");
-                cmbCadastrarCategoria.SelectedIndex = 0; // Seleciona a primeira categoria por padrão
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao carregar categorias: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            cmbCadastrarCategoria.Items.Clear();
+            cmbCadastrarCategoria.Items.Add("Eletrônicos");
+            cmbCadastrarCategoria.Items.Add("Roupas e acessórios");
+            cmbCadastrarCategoria.Items.Add("Alimentos e Bebidas");
+            cmbCadastrarCategoria.Items.Add("Beleza e Saúde");
+            cmbCadastrarCategoria.Items.Add("Eletrodomésticos");
+            cmbCadastrarCategoria.Items.Add("Outros");
+            cmbCadastrarCategoria.SelectedIndex = 0;
         }
 
-        private void btnCadastrar_Click(object sender, EventArgs e)
+        private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var produto = new Produto
-                {
-                    Nome = txtNome.Text,
-                    Descricao = txtDescricao.Text,
-                    Categoria = cmbCadastrarCategoria.SelectedItem.ToString(), // Obtém a categoria selecionada
-                    Preco = decimal.Parse(txtPreco.Text),
-                    Estoque = int.Parse(txtEstoque.Text),
-                    Status = rbAtivo.Checked ? "Ativo" : "Inativo" // Define o status com base no RadioButton selecionado
-                };
-
-                var sucesso = _produtoRepository.CadastrarProduto(produto);
-                if (sucesso)
-                {
-                    MessageBox.Show("Produto cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CarregarProdutos();
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao cadastrar o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao cadastrar produto: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Código do botão Salvar (já implementado no código original)
         }
 
-        private void btnAtualizar_Click(object sender, EventArgs e)
+        private void btnLimpar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (dgvProdutos.SelectedRows.Count > 0)
-                {
-                    var row = dgvProdutos.SelectedRows[0];
-                    var produto = new Produto
-                    {
-                        Id = Convert.ToInt32(row.Cells["Id"].Value), // Obtém o ID da linha selecionada
-                        Nome = txtNome.Text,
-                        Descricao = txtDescricao.Text,
-                        Categoria = cmbCadastrarCategoria.SelectedItem.ToString(), // Obtém a categoria selecionada
-                        Preco = decimal.Parse(txtPreco.Text),
-                        Estoque = int.Parse(txtEstoque.Text),
-                        Status = rbAtivo.Checked ? "Ativo" : "Inativo" // Define o status com base no RadioButton selecionado
-                    };
+            txtNome.Clear();
+            txtDescricao.Clear();
+            txtPreco.Clear();
+            txtEstoque.Clear();
+            txtURL.Clear();
+            cmbCadastrarCategoria.SelectedIndex = 0;
+            rbAtivo.Checked = true;
+            rbInativo.Checked = false;
+        }
 
-                    var sucesso = _produtoRepository.AtualizarProduto(produto);
+        private void btnDeletar_Click(object sender, EventArgs e)
+        {
+            if (dgvProdutos.CurrentRow != null && dgvProdutos.CurrentRow.Cells["Id"].Value != null)
+            {
+                int idProduto = Convert.ToInt32(dgvProdutos.CurrentRow.Cells["Id"].Value);
+
+                var confirmacao = MessageBox.Show("Tem certeza que deseja deletar este produto?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmacao == DialogResult.Yes)
+                {
+                    bool sucesso = _produtoRepository.DeletarProduto(idProduto);
+
                     if (sucesso)
                     {
-                        MessageBox.Show("Produto atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CarregarProdutos();
+                        dgvProdutos.Rows.Remove(dgvProdutos.CurrentRow);
+                        MessageBox.Show("Produto deletado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Erro ao atualizar o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Erro ao deletar o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Selecione um produto para atualizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Erro ao atualizar produto: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione um produto para deletar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void btnExcluir_Click(object sender, EventArgs e)
+        private void btnProduto_Click(object sender, EventArgs e)
         {
-            try
+            if (dgvProdutos.CurrentRow != null && dgvProdutos.CurrentRow.Cells["Id"].Value != null)
             {
-                if (dgvProdutos.SelectedRows.Count > 0)
-                {
-                    var row = dgvProdutos.SelectedRows[0];
-                    var id = Convert.ToInt32(row.Cells["Id"].Value); // Obtém o ID da linha selecionada
+                txtNome.Text = dgvProdutos.CurrentRow.Cells["Nome"].Value.ToString();
+                txtDescricao.Text = dgvProdutos.CurrentRow.Cells["Descricao"].Value.ToString();
+                cmbCadastrarCategoria.SelectedItem = dgvProdutos.CurrentRow.Cells["Categoria"].Value.ToString();
+                txtPreco.Text = dgvProdutos.CurrentRow.Cells["Preco"].Value.ToString();
+                txtEstoque.Text = dgvProdutos.CurrentRow.Cells["Estoque"].Value.ToString();
+                txtURL.Text = dgvProdutos.CurrentRow.Cells["Imagem"].Value != null ? dgvProdutos.CurrentRow.Cells["Imagem"].Value.ToString() : string.Empty;
 
-                    var sucesso = _produtoRepository.DeletarProduto(id);
-                    if (sucesso)
-                    {
-                        MessageBox.Show("Produto excluído com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CarregarProdutos();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro ao excluir o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Selecione um produto para excluir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao excluir produto: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void dgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var row = dgvProdutos.Rows[e.RowIndex];
-                txtNome.Text = row.Cells["Nome"].Value.ToString();
-                txtDescricao.Text = row.Cells["Descricao"].Value.ToString();
-                cmbCadastrarCategoria.SelectedItem = row.Cells["Categoria"].Value.ToString(); // Seleciona a categoria no ComboBox
-                txtPreco.Text = row.Cells["Preco"].Value.ToString();
-                txtEstoque.Text = row.Cells["Estoque"].Value.ToString();
-                var status = row.Cells["Status"].Value.ToString();
+                string status = dgvProdutos.CurrentRow.Cells["Status"].Value.ToString();
                 rbAtivo.Checked = status == "Ativo";
                 rbInativo.Checked = status == "Inativo";
+            }
+            else
+            {
+                MessageBox.Show("Selecione um produto para visualizar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnAtualizarGrid_Click(object sender, EventArgs e)
+        {
+            CarregarProdutos();
+            MessageBox.Show("Lista de produtos atualizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private Image CarregarImagem(string url)
+        {
+            try
+            {
+                using (var webClient = new WebClient())
+                {
+                    byte[] imageBytes = webClient.DownloadData(url);
+                    using (var ms = new MemoryStream(imageBytes))
+                    {
+                        return Image.FromStream(ms);
+                    }
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
     }

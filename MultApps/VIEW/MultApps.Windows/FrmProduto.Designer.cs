@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSalvar = new System.Windows.Forms.Button();
             this.cmbCadastrarCategoria = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtURL = new System.Windows.Forms.TextBox();
@@ -39,7 +40,6 @@
             this.btnLimpar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.btnDeletar = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
             this.txtEstoque = new System.Windows.Forms.TextBox();
             this.txtPreco = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
@@ -61,6 +61,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Silver;
+            this.groupBox1.Controls.Add(this.btnSalvar);
             this.groupBox1.Controls.Add(this.cmbCadastrarCategoria);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtURL);
@@ -71,7 +72,6 @@
             this.groupBox1.Controls.Add(this.btnLimpar);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.btnDeletar);
-            this.groupBox1.Controls.Add(this.btnSalvar);
             this.groupBox1.Controls.Add(this.txtEstoque);
             this.groupBox1.Controls.Add(this.txtPreco);
             this.groupBox1.Controls.Add(this.txtNome);
@@ -87,13 +87,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CADASTRO / EDIÇÃO DE PRODUTOS";
             // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Enabled = false;
+            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalvar.Location = new System.Drawing.Point(18, 361);
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Size = new System.Drawing.Size(86, 32);
+            this.btnSalvar.TabIndex = 47;
+            this.btnSalvar.Text = "SALVAR";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
             // cmbCadastrarCategoria
             // 
             this.cmbCadastrarCategoria.FormattingEnabled = true;
             this.cmbCadastrarCategoria.Items.AddRange(new object[] {
-            "Inativo",
-            "Ativo",
-            "Excluido"});
+            "Todos",
+            "Eletrônicos",
+            "Roupas e Acessórios",
+            "Alimentos e Bebidas",
+            "Beleza e Saúde",
+            "Eletrodomésticos",
+            "Outros"});
             this.cmbCadastrarCategoria.Location = new System.Drawing.Point(611, 69);
             this.cmbCadastrarCategoria.Name = "cmbCadastrarCategoria";
             this.cmbCadastrarCategoria.Size = new System.Drawing.Size(514, 33);
@@ -168,6 +184,7 @@
             this.btnLimpar.TabIndex = 40;
             this.btnLimpar.Text = "LIMPAR";
             this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // label9
             // 
@@ -189,18 +206,7 @@
             this.btnDeletar.TabIndex = 10;
             this.btnDeletar.Text = "DELETAR";
             this.btnDeletar.UseVisualStyleBackColor = true;
-            // 
-            // btnSalvar
-            // 
-            this.btnSalvar.BackColor = System.Drawing.Color.Black;
-            this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalvar.ForeColor = System.Drawing.Color.White;
-            this.btnSalvar.Location = new System.Drawing.Point(18, 361);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(86, 32);
-            this.btnSalvar.TabIndex = 11;
-            this.btnSalvar.Text = "SALVAR";
-            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);
             // 
             // txtEstoque
             // 
@@ -327,6 +333,7 @@
             this.btnProduto.TabIndex = 44;
             this.btnProduto.Text = "Novo Produto";
             this.btnProduto.UseVisualStyleBackColor = false;
+            this.btnProduto.Click += new System.EventHandler(this.btnProduto_Click);
             // 
             // btnAtualizarGrid
             // 
@@ -338,6 +345,7 @@
             this.btnAtualizarGrid.TabIndex = 45;
             this.btnAtualizarGrid.Text = "Atualizar Grid";
             this.btnAtualizarGrid.UseVisualStyleBackColor = false;
+            this.btnAtualizarGrid.Click += new System.EventHandler(this.btnAtualizarGrid_Click);
             // 
             // FrmProduto
             // 
@@ -367,7 +375,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnDeletar;
-        private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.TextBox txtEstoque;
         private System.Windows.Forms.TextBox txtPreco;
         private System.Windows.Forms.TextBox txtNome;
@@ -390,5 +397,6 @@
         private System.Windows.Forms.TextBox txtURL;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbCadastrarCategoria;
+        private System.Windows.Forms.Button btnSalvar;
     }
 }

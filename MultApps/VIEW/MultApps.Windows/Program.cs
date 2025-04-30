@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultApps.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace MultApps.Windows
         {
             SplashScreen splash = new SplashScreen();
             splash.ShowDialog();
-            Application.Run(new frmSistema());
+            Application.Run(new FrmProduto());
             Application.EnableVisualStyles();
         }
     }

@@ -1,104 +1,137 @@
-﻿using Dapper;
-using MultApps.Models.Entitites.Abstract;
-using MultApps.Models.Enums;
+﻿using MultApps.Models.Entitites.Abstract;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 
 namespace MultApps.Models.repositories
 {
     public class ProdutoRepositories
     {
-        public string ConnectionString = "Server=localhost;Database=multapps_dev;Uid=root;Pwd=root";
+        private readonly string _connectionString;
 
-        public bool CadastrarProduto(Produto produto)
+        public ProdutoRepositories()
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
-            {
-                var comandoSql = @"INSERT INTO Produto (Nome, Descricao, Categoria, Preco, Estoque, Status)
-                                   VALUES (@Nome, @Descricao, @Categoria, @Preco, @Estoque, @Status)";
-
-                var parametros = new DynamicParameters();
-                parametros.Add("@Nome", produto.Nome);
-                parametros.Add("@Descricao", produto.Descricao);
-                parametros.Add("@Categoria", produto.Categoria);
-                parametros.Add("@Preco", produto.Preco);
-                parametros.Add("@Estoque", produto.Estoque);
-                parametros.Add("@Status", produto.Status);
-
-                var resultado = db.Execute(comandoSql, parametros);
-                return resultado > 0;
-            }
+            _connectionString = "Server=localhost;Database=multapps_dev;Uid=root;Pwd=root;";
         }
+
 
         public List<Produto> ListarTodosProdutos()
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
-            {
-                var comandoSql = @"SELECT Id, Nome, Descricao, Categoria, Preco, Estoque, Status, DataCriacao, DataAlteracao 
-                                   FROM Produto";
+            var produtos = new List<Produto>();
 
-                var resultado = db.Query<Produto>(comandoSql).ToList();
-                return resultado;
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM Produto";
+
+                using (var command = new MySqlCommand(query, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        produtos.Add(new Produto
+                        {
+                            Id = reader.GetInt32("Id"),
+                            Nome = reader.GetString("Nome"),
+                            Descricao = reader.GetString("Descricao"),
+                            Categoria = reader.GetString("Categoria"),
+                            Preco = reader.GetDecimal("Preco"),
+                            Estoque = reader.GetInt32("Estoque"),
+                            Status = reader.GetString("Status")
+                        });
+                    }
+                }
             }
+
+            return produtos;
         }
 
-        public Produto ObterProdutoPorId(int id)
+        public bool CadastrarProduto(Produto produto)
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
+            try
             {
-                var comandoSql = @"SELECT Id, Nome, Descricao, Categoria, Preco, Estoque, Status, DataCriacao, DataAlteracao 
-                                   FROM Produto WHERE Id = @Id";
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var query = "INSERT INTO Produto (Nome, Descricao, Categoria, Preco, Estoque, Status) " +
+                                "VALUES (@Nome, @Descricao, @Categoria, @Preco, @Estoque, @Status)";
 
-                var parametros = new DynamicParameters();
-                parametros.Add("@Id", id);
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Nome", produto.Nome);
+                        command.Parameters.AddWithValue("@Descricao", produto.Descricao);
+                        command.Parameters.AddWithValue("@Categoria", produto.Categoria);
+                        command.Parameters.AddWithValue("@Preco", produto.Preco);
+                        command.Parameters.AddWithValue("@Estoque", produto.Estoque);
+                        command.Parameters.AddWithValue("@Status", produto.Status);
 
-                var produto = db.Query<Produto>(comandoSql, parametros).FirstOrDefault();
-                return produto;
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        public bool AtualizarProduto(Produto produto)
+        // Método para atualizar um produto existente
+        public bool AtualizarProduto(Produto produtoAtualizado)
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
+            try
             {
-                var comandoSql = @"UPDATE Produto
-                                   SET Nome = @Nome,
-                                       Descricao = @Descricao,
-                                       Categoria = @Categoria,
-                                       Preco = @Preco,
-                                       Estoque = @Estoque,
-                                       Status = @Status,
-                                       DataAlteracao = CURRENT_TIMESTAMP
-                                   WHERE Id = @Id";
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var query = "UPDATE Produto SET Nome = @Nome, Descricao = @Descricao, Categoria = @Categoria, " +
+                                "Preco = @Preco, Estoque = @Estoque, Status = @Status WHERE Id = @Id";
 
-                var parametros = new DynamicParameters();
-                parametros.Add("@Nome", produto.Nome);
-                parametros.Add("@Descricao", produto.Descricao);
-                parametros.Add("@Categoria", produto.Categoria);
-                parametros.Add("@Preco", produto.Preco);
-                parametros.Add("@Estoque", produto.Estoque);
-                parametros.Add("@Status", produto.Status);
-                parametros.Add("@Id", produto.Id);
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", produtoAtualizado.Id);
+                        command.Parameters.AddWithValue("@Nome", produtoAtualizado.Nome);
+                        command.Parameters.AddWithValue("@Descricao", produtoAtualizado.Descricao);
+                        command.Parameters.AddWithValue("@Categoria", produtoAtualizado.Categoria);
+                        command.Parameters.AddWithValue("@Preco", produtoAtualizado.Preco);
+                        command.Parameters.AddWithValue("@Estoque", produtoAtualizado.Estoque);
+                        command.Parameters.AddWithValue("@Status", produtoAtualizado.Status);
 
-                var resposta = db.Execute(comandoSql, parametros);
-                return resposta > 0;
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
+        // Método para deletar um produto
         public bool DeletarProduto(int id)
         {
-            using (IDbConnection db = new MySqlConnection(ConnectionString))
+            try
             {
-                var comandoSql = @"DELETE FROM Produto WHERE Id = @Id";
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var query = "DELETE FROM Produto WHERE Id = @Id";
 
-                var parametros = new DynamicParameters();
-                parametros.Add("@Id", id);
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.ExecuteNonQuery();
+                    }
+                }
 
-                var resposta = db.Execute(comandoSql, parametros);
-                return resposta > 0;
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }
+}
