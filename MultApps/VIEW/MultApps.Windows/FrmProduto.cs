@@ -28,7 +28,6 @@ namespace MultApps.Views
         {
             dgvProdutos.Columns.Clear();
 
-            // Configura a coluna de imagem
             var colunaImagem = new DataGridViewImageColumn
             {
                 Name = "Imagem",
@@ -37,7 +36,6 @@ namespace MultApps.Views
             };
             dgvProdutos.Columns.Add(colunaImagem);
 
-            // Configura as demais colunas
             dgvProdutos.Columns.Add("Id", "ID");
             dgvProdutos.Columns.Add("Nome", "Nome");
             dgvProdutos.Columns.Add("Descricao", "Descrição");
@@ -45,6 +43,10 @@ namespace MultApps.Views
             dgvProdutos.Columns.Add("Preco", "Preço");
             dgvProdutos.Columns.Add("Estoque", "Estoque");
             dgvProdutos.Columns.Add("Status", "Status");
+            dgvProdutos.Columns.Add("UrlImagem", "UrlImagem");
+
+
+            dgvProdutos.CellDoubleClick += dgvProdutos_CellDoubleClick;
         }
 
         private void ConfigurarFiltros()
@@ -103,7 +105,7 @@ namespace MultApps.Views
                 {
                     var imagem = CarregarImagem(produto.UrlImagem);
 
-                    dgvProdutos.Rows.Add(imagem, produto.Id, produto.Nome, produto.Descricao, produto.Categoria, produto.Preco, produto.Estoque, produto.Status);
+                    dgvProdutos.Rows.Add(imagem, produto.Id, produto.Nome, produto.Descricao, produto.Categoria, produto.Preco, produto.Estoque, produto.Status, produto.UrlImagem);
                 }
             }
             catch (Exception ex)
@@ -126,7 +128,54 @@ namespace MultApps.Views
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            // Código do botão Salvar (já implementado no código original)
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtNome.Text) || string.IsNullOrWhiteSpace(txtURL.Text))
+                {
+                    MessageBox.Show("Preencha todos os campos obrigatórios!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!decimal.TryParse(txtPreco.Text, out var preco) || preco <= 0)
+                {
+                    MessageBox.Show("Informe um preço válido!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(txtEstoque.Text, out var estoque) || estoque < 0)
+                {
+                    MessageBox.Show("Informe um valor de estoque válido!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var novoProduto = new Produto
+                {
+                    Nome = txtNome.Text,
+                    Descricao = txtDescricao.Text,
+                    Categoria = cmbCadastrarCategoria.SelectedItem?.ToString(),
+                    Preco = preco,
+                    Estoque = estoque,
+                    UrlImagem = txtURL.Text,
+                    Status = rbAtivo.Checked ? "Ativo" : "Inativo"
+                };
+
+                bool sucesso = _produtoRepository.CadastrarProduto(novoProduto);
+
+                if (sucesso)
+                {
+                    CarregarProdutos();
+                    MessageBox.Show("Produto salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnLimpar_Click(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao salvar o produto. Verifique os dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
@@ -197,6 +246,27 @@ namespace MultApps.Views
             MessageBox.Show("Lista de produtos atualizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void dgvProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvProdutos.Rows[e.RowIndex];
+
+                txtNome.Text = row.Cells["Nome"].Value?.ToString();
+                txtDescricao.Text = row.Cells["Descricao"].Value?.ToString();
+                cmbCadastrarCategoria.SelectedItem = row.Cells["Categoria"].Value?.ToString();
+                txtPreco.Text = row.Cells["Preco"].Value?.ToString();
+                txtEstoque.Text = row.Cells["Estoque"].Value?.ToString();
+
+                txtURL.Text = row.Cells["UrlImagem"].Value?.ToString();
+
+                string status = row.Cells["Status"].Value?.ToString();
+                rbAtivo.Checked = status == "Ativo";
+                rbInativo.Checked = status == "Inativo";
+            }
+        }
+
+
         private Image CarregarImagem(string url)
         {
             try
@@ -215,5 +285,6 @@ namespace MultApps.Views
                 return null;
             }
         }
+
     }
 }

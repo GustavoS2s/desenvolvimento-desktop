@@ -89,7 +89,6 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Enabled = false;
             this.btnSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalvar.Location = new System.Drawing.Point(18, 361);
             this.btnSalvar.Name = "btnSalvar";
@@ -127,7 +126,6 @@
             // 
             // txtURL
             // 
-            this.txtURL.Enabled = false;
             this.txtURL.Location = new System.Drawing.Point(17, 317);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(514, 31);
@@ -176,7 +174,6 @@
             // 
             // btnLimpar
             // 
-            this.btnLimpar.Enabled = false;
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpar.Location = new System.Drawing.Point(110, 361);
             this.btnLimpar.Name = "btnLimpar";
@@ -198,7 +195,6 @@
             // 
             // btnDeletar
             // 
-            this.btnDeletar.Enabled = false;
             this.btnDeletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeletar.Location = new System.Drawing.Point(197, 361);
             this.btnDeletar.Name = "btnDeletar";
@@ -210,7 +206,6 @@
             // 
             // txtEstoque
             // 
-            this.txtEstoque.Enabled = false;
             this.txtEstoque.Location = new System.Drawing.Point(611, 243);
             this.txtEstoque.Name = "txtEstoque";
             this.txtEstoque.Size = new System.Drawing.Size(514, 31);
@@ -218,7 +213,6 @@
             // 
             // txtPreco
             // 
-            this.txtPreco.Enabled = false;
             this.txtPreco.Location = new System.Drawing.Point(18, 243);
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(549, 31);
@@ -233,7 +227,6 @@
             // 
             // txtDescricao
             // 
-            this.txtDescricao.Enabled = false;
             this.txtDescricao.Location = new System.Drawing.Point(14, 140);
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
@@ -278,6 +271,7 @@
             this.dgvProdutos.Name = "dgvProdutos";
             this.dgvProdutos.Size = new System.Drawing.Size(1172, 189);
             this.dgvProdutos.TabIndex = 30;
+            this.dgvProdutos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutos_CellDoubleClick);
             // 
             // cmbStatus
             // 

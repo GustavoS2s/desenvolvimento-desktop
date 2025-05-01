@@ -1,5 +1,6 @@
 ﻿using MultApps.Models.Entitites.Abstract;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 
 namespace MultApps.Models.repositories
@@ -36,6 +37,7 @@ namespace MultApps.Models.repositories
                             Categoria = reader.GetString("Categoria"),
                             Preco = reader.GetDecimal("Preco"),
                             Estoque = reader.GetInt32("Estoque"),
+                            UrlImagem = reader.GetString("UrlImagem"),
                             Status = reader.GetString("Status")
                         });
                     }
@@ -52,8 +54,8 @@ namespace MultApps.Models.repositories
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
-                    var query = "INSERT INTO Produto (Nome, Descricao, Categoria, Preco, Estoque, Status) " +
-                                "VALUES (@Nome, @Descricao, @Categoria, @Preco, @Estoque, @Status)";
+                    var query = "INSERT INTO Produto (Nome, Descricao, Categoria, Preco, Estoque, UrlImagem, Status) " +
+                                "VALUES (@Nome, @Descricao, @Categoria, @Preco, @Estoque, @UrlImagem, @Status)";
 
                     using (var command = new MySqlCommand(query, connection))
                     {
@@ -62,6 +64,7 @@ namespace MultApps.Models.repositories
                         command.Parameters.AddWithValue("@Categoria", produto.Categoria);
                         command.Parameters.AddWithValue("@Preco", produto.Preco);
                         command.Parameters.AddWithValue("@Estoque", produto.Estoque);
+                        command.Parameters.AddWithValue("@UrlImagem", produto.UrlImagem); 
                         command.Parameters.AddWithValue("@Status", produto.Status);
 
                         command.ExecuteNonQuery();
@@ -76,7 +79,39 @@ namespace MultApps.Models.repositories
             }
         }
 
-        // Método para atualizar um produto existente
+        public bool AdicionarProduto(Produto produto)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                INSERT INTO Produtos 
+                (Nome, Descricao, Categoria, Preco, Estoque, UrlImagem, Status)
+                VALUES (@Nome, @Descricao, @Categoria, @Preco, @Estoque, @UrlImagem, @Status);";
+
+                    var command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Nome", produto.Nome);
+                    command.Parameters.AddWithValue("@Descricao", produto.Descricao);
+                    command.Parameters.AddWithValue("@Categoria", produto.Categoria);
+                    command.Parameters.AddWithValue("@Preco", produto.Preco);
+                    command.Parameters.AddWithValue("@Estoque", produto.Estoque);
+                    command.Parameters.AddWithValue("@UrlImagem", produto.UrlImagem);
+                    command.Parameters.AddWithValue("@Status", produto.Status);
+
+                    command.ExecuteNonQuery();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao adicionar produto: " + ex.Message);
+                return false;
+            }
+        }
         public bool AtualizarProduto(Produto produtoAtualizado)
         {
             try
@@ -109,7 +144,6 @@ namespace MultApps.Models.repositories
             }
         }
 
-        // Método para deletar um produto
         public bool DeletarProduto(int id)
         {
             try
